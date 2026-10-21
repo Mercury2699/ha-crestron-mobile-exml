@@ -6,6 +6,7 @@ import logging
 from typing import Any
 
 from homeassistant.components.cover import (
+    ATTR_POSITION,
     CoverDeviceClass,
     CoverEntity,
     CoverEntityFeature,
@@ -93,7 +94,7 @@ class CrestronExmlCover(CoverEntity):
         pos = self.current_cover_position
         if pos is None:
             return None
-        return pos == 0
+        return pos <= 2
 
     async def async_open_cover(self, **kwargs: Any) -> None:
         """Open the shade."""
@@ -116,7 +117,7 @@ class CrestronExmlCover(CoverEntity):
 
     async def async_set_cover_position(self, **kwargs: Any) -> None:
         """Set cover position (0-100%)."""
-        position = kwargs.get("position", 0)
+        position = kwargs.get(ATTR_POSITION, kwargs.get("position", 0))
         # Convert 0-100% to 0-65535
         raw_val = int(round((position / 100.0) * 65535.0))
         raw_val = max(0, min(65535, raw_val))
