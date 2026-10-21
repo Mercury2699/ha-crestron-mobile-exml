@@ -1,0 +1,54 @@
+# Example Home Assistant configuration for Crestron Mobile EXML
+# You can include this directly in configuration.yaml or use !include
+
+crestron_mobile_exml:
+  host: "192.168.1.50"         # IP address of your Crestron control processor
+  port: 41790                # Default Crestron Mobile EXML TCP port
+  passcode: "1234"           # Passcode configured in Crestron Mobile (default is often 1234)
+
+  lights:
+    # Example 1: Dimmable light with toggle and up/down ramp joins
+    - name: "Living Room Chandelier"
+      unique_id: "crestron_light_living_chandelier"
+      toggle_join: 21
+      up_join: 22
+      down_join: 23
+      ramp_time: 5.0           # Seconds to ramp from 0% to 100% (default: 5.0)
+
+    # Example 2: Multi-gang / 3-way lighting load (with companion keypad joins)
+    - name: "Kitchen Island Lights"
+      unique_id: "crestron_light_kitchen_island"
+      toggle_join: 31
+      up_join: 32
+      down_join: 33
+      ramp_time: 5.0
+      companion_toggle_joins: [34, 37]
+      companion_up_joins: [35, 38]
+      companion_down_joins: [36, 39]
+
+    # Example 3: Simple On/Off switch load (no dimming joins)
+    - name: "Front Porch Accent Light"
+      unique_id: "crestron_light_porch_accent"
+      toggle_join: 50
+
+    # Example 4: Master room load with linked-off joins
+    - name: "Master Bedroom All Lights"
+      unique_id: "crestron_light_mbr_all"
+      toggle_join: 60
+      up_join: 61
+      down_join: 62
+      linked_off_joins: [63, 64]
+
+  covers:
+    # Example 1: Motorized shade with 16-bit analog level feedback and digital pulse control
+    - name: "Living Room Front Window Shade"
+      unique_id: "crestron_cover_living_front_shade"
+      analog_join: 10          # 16-bit analog join (0..65535 maps to 0..100%)
+      open_join: 101           # Optional digital join pulsed to open
+      close_join: 102          # Optional digital join pulsed to close
+      stop_join: 103           # Optional digital join pulsed to stop
+
+    # Example 2: Motorized drape with analog join only (position control)
+    - name: "Master Bedroom Left Drape"
+      unique_id: "crestron_cover_mbr_left_drape"
+      analog_join: 11
