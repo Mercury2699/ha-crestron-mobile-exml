@@ -1,0 +1,12 @@
+{
+  "domain": "crestron_mobile_exml",
+  "name": "Crestron Mobile EXML",
+  "codeowners": ["@Mercury2699"],
+  "config_flow": false,
+  "documentation": "https://github.com/Mercury2699/ha-crestron-mobile-exml",
+  "integration_type": "hub",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/Mercury2699/ha-crestron-mobile-exml/issues",
+  "requirements": [],
+  "version": "1.0.0"
+}
